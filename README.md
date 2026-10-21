@@ -1,6 +1,15 @@
-# 📦 Sistem Manajemen Inventaris Enterprise (TALL Stack)
+# 📦 Sistem Manajemen Inventaris Enterprise (Shadcn Admin UI)
 
-Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yang dibangun dengan menggunakan **Laravel 13, Filament v3, Tailwind CSS, dan MySQL**. Aplikasi ini dirancang untuk mencatat pergerakan barang, menganalisis ketersediaan stok, menangani retur, hingga memprediksi rasio perputaran barang di multi-gudang secara akurat dan real-time.
+Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yang dibangun dengan menggunakan **Laravel 13, Filament v3, Tailwind CSS v4, dan MySQL**, dipercantik dengan sentuhan **Shadcn Admin Design System** (`satnaing/shadcn-admin`). Aplikasi ini dirancang untuk mencatat pergerakan barang, menganalisis ketersediaan stok, menangani retur, hingga memprediksi rasio perputaran barang di multi-gudang secara akurat, modern, dan real-time.
+
+---
+
+## 🎨 Tampilan & UI/UX (Shadcn Admin Design System)
+*   **Palet Slate OKLCH & Inter Typography:** Tampilan profesional dengan kontras tinggi, font Inter, dan radius sudut 0.625rem (`rounded-xl`).
+*   **16rem Collapsible Sidebar:** Sidebar navigasi modular yang dapat disederhanakan menjadi mini-rail ikonik secara instan di layar desktop.
+*   **Sticky Blurred Topbar:** Header sticky dengan efek `backdrop-blur-md` dan garis pembatas halus.
+*   **3-Way Dark / Light / System Mode:** Dukungan tema gelap dan terang terintegrasi penuh pada seluruh halaman, tabel data, modal, dan grafik.
+*   **Command Palette (`⌘K` / `Ctrl+K`):** Navigasi dan pencarian global instan dari mana saja menggunakan keyboard.
 
 ---
 
@@ -50,7 +59,7 @@ Sistem transaksi dengan validasi *real-time* yang mustahil menyebabkan stok minu
 
 1. **Clone repositori ini:**
    ```bash
-   git clone https://github.com/PranataGM/Inventory-Management-System.git
+   git clone https://github.com/pranataa-labs/Inventory-Management-System.git
    cd Sistem-Manajemen-Inventaris
    ```
 
@@ -72,7 +81,6 @@ Sistem transaksi dengan validasi *real-time* yang mustahil menyebabkan stok minu
    ```
 
 5. **Jalankan Migrasi dan Seeder:**
-   Perintah di bawah ini akan membangun arsitektur database, dan mengisinya dengan 10 sampel data dummy produk Indonesia (Indomie, Aqua, dsb), akun Admin, akun Staff, dan simulasi transaksi agar Dashboard analitik langsung menyala.
    ```bash
    php artisan migrate:fresh --seed
    ```
@@ -100,4 +108,4 @@ Gunakan kredensial berikut untuk menguji coba limitasi otorisasi (RBAC):
 
 ---
 
-Dibuat dengan ❤️ menggunakan Laravel, FilamentPHP, dan TailwindCSS.
+*Dibuat oleh [pranataa-labs](https://github.com/pranataa-labs).*

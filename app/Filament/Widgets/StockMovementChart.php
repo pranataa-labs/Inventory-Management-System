@@ -46,26 +46,20 @@ class StockMovementChart extends ChartWidget
                 [
                     'label' => 'Barang Masuk (Inbound)',
                     'data' => $dataMasuk,
-                    'borderColor' => '#0ea5e9', // Sky 500
-                    'backgroundColor' => 'rgba(14, 165, 233, 0.08)',
-                    'fill' => true,
-                    'tension' => 0.35,
-                    'borderWidth' => 2.5,
-                    'pointBackgroundColor' => '#0ea5e9',
-                    'pointRadius' => 4,
-                    'pointHoverRadius' => 6,
+                    'backgroundColor' => '#0ea5e9', // Sky 500
+                    'borderRadius' => 6,
+                    'borderSkipped' => false,
+                    'barPercentage' => 0.7,
+                    'categoryPercentage' => 0.8,
                 ],
                 [
                     'label' => 'Barang Keluar (Outbound)',
                     'data' => $dataKeluar,
-                    'borderColor' => '#f43f5e', // Rose 500
-                    'backgroundColor' => 'rgba(244, 63, 94, 0.08)',
-                    'fill' => true,
-                    'tension' => 0.35,
-                    'borderWidth' => 2.5,
-                    'pointBackgroundColor' => '#f43f5e',
-                    'pointRadius' => 4,
-                    'pointHoverRadius' => 6,
+                    'backgroundColor' => '#f43f5e', // Rose 500
+                    'borderRadius' => 6,
+                    'borderSkipped' => false,
+                    'barPercentage' => 0.7,
+                    'categoryPercentage' => 0.8,
                 ],
             ],
             'labels' => $months->map(fn($m) => Carbon::createFromFormat('Y-m', $m)->translatedFormat('M Y'))->toArray(),
@@ -122,6 +116,6 @@ class StockMovementChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'line';
+        return 'bar';
     }
 }

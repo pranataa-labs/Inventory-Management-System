@@ -16,23 +16,21 @@ class CategoryDistributionChart extends ChartWidget
 
     protected function getData(): array
     {
-        $categories = Category::withCount('products')
-            ->having('products_count', '>', 0)
-            ->orderBy('products_count', 'desc')
-            ->limit(8)
-            ->get();
+        $categories = Category::withCount('products')->get();
         
         $labels = [];
         $data = [];
         $backgroundColors = [];
 
-        // Elegant Shadcn-aligned palette (Sky, Indigo, Emerald, Amber, Rose, Violet, Teal, Pink)
+        // Elegant OKLCH-aligned Palette (Sky, Indigo, Emerald, Amber, Rose, Violet, Teal, Pink)
         $colors = ['#0ea5e9', '#6366f1', '#10b981', '#f59e0b', '#f43f5e', '#8b5cf6', '#14b8a6', '#ec4899'];
 
         foreach ($categories as $index => $category) {
-            $labels[] = str($category->name)->limit(14);
-            $data[] = $category->products_count;
-            $backgroundColors[] = $colors[$index % count($colors)];
+            if ($category->products_count > 0) {
+                $labels[] = $category->name;
+                $data[] = $category->products_count;
+                $backgroundColors[] = $colors[$index % count($colors)];
+            }
         }
 
         return [
@@ -41,8 +39,8 @@ class CategoryDistributionChart extends ChartWidget
                     'label' => 'Jumlah SKU Barang',
                     'data' => $data,
                     'backgroundColor' => $backgroundColors,
-                    'borderRadius' => 6,
-                    'borderSkipped' => false,
+                    'borderWidth' => 2,
+                    'hoverOffset' => 4,
                 ],
             ],
             'labels' => $labels,
@@ -54,40 +52,25 @@ class CategoryDistributionChart extends ChartWidget
         return [
             'plugins' => [
                 'legend' => [
-                    'display' => false,
-                ],
-            ],
-            'scales' => [
-                'x' => [
-                    'grid' => [
-                        'display' => false,
-                    ],
-                    'ticks' => [
+                    'position' => 'bottom',
+                    'labels' => [
+                        'usePointStyle' => true,
+                        'pointStyle' => 'circle',
+                        'padding' => 15,
                         'font' => [
                             'family' => 'Inter',
                             'size' => 11,
-                        ],
-                    ],
-                ],
-                'y' => [
-                    'beginAtZero' => true,
-                    'grid' => [
-                        'color' => 'rgba(148, 163, 184, 0.1)',
-                    ],
-                    'ticks' => [
-                        'stepSize' => 1,
-                        'font' => [
-                            'family' => 'Inter',
-                            'size' => 11,
+                            'weight' => '500',
                         ],
                     ],
                 ],
             ],
+            'cutout' => '72%',
         ];
     }
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'doughnut';
     }
 }

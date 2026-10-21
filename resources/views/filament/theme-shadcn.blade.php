@@ -12,8 +12,10 @@
                 const isDark = (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
                 if (isDark) {
                     document.documentElement.classList.add('dark');
+                    document.cookie = 'theme=dark;path=/;max-age=31536000;SameSite=Lax';
                 } else {
                     document.documentElement.classList.remove('dark');
+                    document.cookie = 'theme=light;path=/;max-age=31536000;SameSite=Lax';
                 }
             } catch (e) {}
         }

@@ -12,57 +12,49 @@ class StockMovementChart extends ChartWidget
     protected static ?int $sort = 2;
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Tren Mutasi Stok Barang (Masuk vs Keluar)';
-    protected static ?string $description = 'Perbandingan volume arus barang masuk (restock/supplier) dan keluar (penjualan/distribusi) 6 bulan terakhir';
-    protected static ?string $maxHeight = '300px';
+    protected static ?string $heading = 'Overview Mutasi Stok';
+    protected static ?string $description = 'Total perputaran arus barang (inbound & outbound) per bulan sepanjang 12 bulan terakhir';
+    protected static ?string $maxHeight = '320px';
 
     protected function getData(): array
     {
-        $months = collect(range(0, 5))->map(fn ($i) => now()->subMonths($i)->format('Y-m'))->reverse()->values();
+        // 12 bulan terakhir (Jan - Des)
+        $months = collect(range(0, 11))->map(fn ($i) => now()->subMonths($i)->format('Y-m'))->reverse()->values();
 
-        // Optimized single aggregation query for 6 months
+        // Agregasi total volume mutasi per bulan (in + out)
         $rawStats = DB::table('stock_movements')
-            ->where('created_at', '>=', now()->subMonths(5)->startOfMonth())
+            ->where('created_at', '>=', now()->subMonths(11)->startOfMonth())
             ->whereIn('type', ['in', 'out'])
-            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, type, SUM(quantity) as total_qty")
-            ->groupBy('ym', 'type')
-            ->get();
+            ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, SUM(quantity) as total_qty")
+            ->groupBy('ym')
+            ->pluck('total_qty', 'ym')
+            ->toArray();
 
-        $statsMap = [];
-        foreach ($rawStats as $row) {
-            $statsMap[$row->ym][$row->type] = (int) $row->total_qty;
-        }
-
-        $dataMasuk = [];
-        $dataKeluar = [];
-
+        $data = [];
         foreach ($months as $m) {
-            $dataMasuk[] = $statsMap[$m]['in'] ?? 0;
-            $dataKeluar[] = $statsMap[$m]['out'] ?? 0;
+            $data[] = (int) ($rawStats[$m] ?? 0);
         }
+
+        $isDark = request()->cookie('theme') === 'dark';
+        $barColor = $isDark ? '#f8fafc' : '#0f172a';
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Barang Masuk (Inbound)',
-                    'data' => $dataMasuk,
-                    'backgroundColor' => '#0ea5e9', // Sky 500
-                    'borderRadius' => 6,
+                    'label' => 'Total Mutasi (Pcs)',
+                    'data' => $data,
+                    'backgroundColor' => $barColor,
+                    'borderRadius' => [
+                        'topLeft' => 6,
+                        'topRight' => 6,
+                        'bottomLeft' => 0,
+                        'bottomRight' => 0,
+                    ],
                     'borderSkipped' => false,
-                    'barPercentage' => 0.7,
-                    'categoryPercentage' => 0.8,
-                ],
-                [
-                    'label' => 'Barang Keluar (Outbound)',
-                    'data' => $dataKeluar,
-                    'backgroundColor' => '#f43f5e', // Rose 500
-                    'borderRadius' => 6,
-                    'borderSkipped' => false,
-                    'barPercentage' => 0.7,
-                    'categoryPercentage' => 0.8,
+                    'maxBarThickness' => 42,
                 ],
             ],
-            'labels' => $months->map(fn($m) => Carbon::createFromFormat('Y-m', $m)->translatedFormat('M Y'))->toArray(),
+            'labels' => $months->map(fn($m) => Carbon::createFromFormat('Y-m', $m)->translatedFormat('M'))->toArray(),
         ];
     }
 
@@ -71,19 +63,7 @@ class StockMovementChart extends ChartWidget
         return [
             'plugins' => [
                 'legend' => [
-                    'display' => true,
-                    'position' => 'top',
-                    'align' => 'end',
-                    'labels' => [
-                        'usePointStyle' => true,
-                        'pointStyle' => 'circle',
-                        'padding' => 20,
-                        'font' => [
-                            'family' => 'Inter',
-                            'size' => 12,
-                            'weight' => '500',
-                        ],
-                    ],
+                    'display' => false,
                 ],
             ],
             'scales' => [
@@ -94,7 +74,8 @@ class StockMovementChart extends ChartWidget
                     'ticks' => [
                         'font' => [
                             'family' => 'Inter',
-                            'size' => 11,
+                            'size' => 12,
+                            'weight' => '500',
                         ],
                     ],
                 ],

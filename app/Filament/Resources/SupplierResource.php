@@ -18,6 +18,26 @@ class SupplierResource extends Resource
     protected static ?string $navigationLabel = 'Pemasok (Supplier)';
     protected static ?string $pluralModelLabel = 'Pemasok';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.suppliers') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.suppliers') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.suppliers') ?? false);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.suppliers') ?? false);
+    }
+
     public static function form(Form $form): Form
     {
         return $form

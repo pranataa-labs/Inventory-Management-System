@@ -23,7 +23,10 @@ class AuditLogResource extends Resource
     public static function canCreate(): bool { return false; }
     public static function canEdit($record): bool { return false; }
     public static function canDelete($record): bool { return false; }
-    public static function canViewAny(): bool { return auth()->user()->hasRole('Admin'); }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('audit.view') ?? false);
+    }
 
     public static function getEloquentQuery(): Builder
     {

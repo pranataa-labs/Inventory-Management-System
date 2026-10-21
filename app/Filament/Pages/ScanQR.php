@@ -19,6 +19,11 @@ class ScanQR extends Page implements HasForms
     protected static string $view = 'filament.pages.scan-q-r';
     protected static ?string $title = 'Scanner QR Stok';
     
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('qr.scan') ?? false);
+    }
+    
     public ?array $data = [];
     
     public function mount(): void

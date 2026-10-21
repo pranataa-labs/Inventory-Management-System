@@ -21,9 +21,25 @@ class ProductResource extends Resource
     protected static ?string $navigationLabel = 'Katalog Barang';
     protected static ?string $pluralModelLabel = 'Katalog Barang';
 
-    public static function canCreate(): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canEdit($record): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canDelete($record): bool { return auth()->user()->hasRole('Admin'); }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('products.view') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('products.create') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('products.edit') ?? false);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('products.delete') ?? false);
+    }
 
     public static function getEloquentQuery(): Builder
     {

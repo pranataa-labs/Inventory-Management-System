@@ -18,9 +18,25 @@ class CategoryResource extends Resource
     protected static ?string $navigationLabel = 'Kategori';
     protected static ?string $pluralModelLabel = 'Kategori';
 
-    public static function canCreate(): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canEdit($record): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canDelete($record): bool { return auth()->user()->hasRole('Admin'); }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.categories') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.categories') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.categories') ?? false);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.categories') ?? false);
+    }
 
     public static function form(Form $form): Form
     {

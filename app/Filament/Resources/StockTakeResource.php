@@ -20,9 +20,27 @@ class StockTakeResource extends Resource
     protected static ?string $navigationLabel = 'Stock Opname';
     protected static ?string $pluralModelLabel = 'Opname Stok';
 
-    public static function canCreate(): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canEdit($record): bool { return auth()->user()->hasRole('Admin') && $record->status === 'pending'; }
-    public static function canDelete($record): bool { return auth()->user()->hasRole('Admin') && $record->status === 'pending'; }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('stock_takes.view') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('stock_takes.create') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        $isAuthorized = auth()->user()?->hasRole('Admin') || (auth()->user()?->can('stock_takes.edit') ?? false);
+        return $isAuthorized && $record->status === 'pending';
+    }
+
+    public static function canDelete($record): bool
+    {
+        $isAuthorized = auth()->user()?->hasRole('Admin') || (auth()->user()?->can('stock_takes.delete') ?? false);
+        return $isAuthorized && $record->status === 'pending';
+    }
 
     public static function getEloquentQuery(): Builder
     {

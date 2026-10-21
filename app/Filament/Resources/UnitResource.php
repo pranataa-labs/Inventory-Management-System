@@ -18,6 +18,26 @@ class UnitResource extends Resource
     protected static ?string $navigationLabel = 'Satuan (Unit)';
     protected static ?string $pluralModelLabel = 'Satuan';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.units') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.units') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.units') ?? false);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.units') ?? false);
+    }
+
     public static function form(Form $form): Form
     {
         return $form

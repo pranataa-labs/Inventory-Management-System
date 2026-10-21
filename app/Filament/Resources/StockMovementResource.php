@@ -19,6 +19,16 @@ class StockMovementResource extends Resource
     protected static ?string $navigationLabel = 'Mutasi Stok';
     protected static ?string $pluralModelLabel = 'Mutasi Stok';
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('movements.view') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('movements.create') ?? false);
+    }
+
     public static function canEdit($record): bool { return false; }
     public static function canDelete($record): bool { return false; }
 

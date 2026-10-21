@@ -18,9 +18,25 @@ class WarehouseResource extends Resource
     protected static ?string $navigationLabel = 'Lokasi / Gudang';
     protected static ?string $pluralModelLabel = 'Gudang';
 
-    public static function canCreate(): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canEdit($record): bool { return auth()->user()->hasRole('Admin'); }
-    public static function canDelete($record): bool { return auth()->user()->hasRole('Admin'); }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.warehouses') ?? false);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.warehouses') ?? false);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.warehouses') ?? false);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('Admin') || (auth()->user()?->can('master.warehouses') ?? false);
+    }
 
     public static function form(Form $form): Form
     {

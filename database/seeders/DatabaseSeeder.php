@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $adminRole = Role::create(['name' => 'Admin']);
-        $staffRole = Role::create(['name' => 'Staff Gudang']);
+        $staffRole = Role::firstOrCreate(['name' => 'Staff Gudang']);
+
+        $this->call(PermissionSeeder::class);
 
         $admin = User::factory()->create([
             'name' => 'Super Admin',

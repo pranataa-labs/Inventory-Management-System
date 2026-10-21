@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -23,6 +24,13 @@ class ProductResource extends Resource
     public static function canCreate(): bool { return auth()->user()->hasRole('Admin'); }
     public static function canEdit($record): bool { return auth()->user()->hasRole('Admin'); }
     public static function canDelete($record): bool { return auth()->user()->hasRole('Admin'); }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['category', 'unit', 'supplier'])
+            ->withSum('productWarehouses as total_stock', 'stock_quantity');
+    }
 
     public static function form(Form $form): Form
     {

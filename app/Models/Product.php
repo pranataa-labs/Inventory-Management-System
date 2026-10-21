@@ -13,5 +13,8 @@ class Product extends Model {
     public function supplier() { return $this->belongsTo(Supplier::class); }
     public function productWarehouses() { return $this->hasMany(ProductWarehouse::class); }
     public function stockMovements() { return $this->hasMany(StockMovement::class); }
-    public function getTotalStockAttribute() { return $this->productWarehouses()->sum('stock_quantity'); }
+    public function getTotalStockAttribute(): int 
+    { 
+        return (int) ($this->attributes['total_stock'] ?? $this->productWarehouses()->sum('stock_quantity')); 
+    }
 }

@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class StockMovementResource extends Resource
 {
@@ -20,6 +21,12 @@ class StockMovementResource extends Resource
 
     public static function canEdit($record): bool { return false; }
     public static function canDelete($record): bool { return false; }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['product', 'warehouse', 'user']);
+    }
 
     public static function form(Form $form): Form
     {

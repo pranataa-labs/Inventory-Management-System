@@ -53,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter')
             ->darkMode(true)
+            ->spa()
             ->sidebarCollapsibleOnDesktop()
             ->sidebarWidth('16rem')
             ->collapsedSidebarWidth('4.5rem')

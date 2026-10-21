@@ -25,6 +25,11 @@ class AuditLogResource extends Resource
     public static function canDelete($record): bool { return false; }
     public static function canViewAny(): bool { return auth()->user()->hasRole('Admin'); }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('user');
+    }
+
     public static function table(Table $table): Table
     {
         return $table

@@ -4,14 +4,15 @@ namespace App\Filament\Widgets;
 
 use App\Models\Product;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\DB;
 
 class FastMovingChart extends ChartWidget
 {
     protected static ?int $sort = 4;
     protected int | string | array $columnSpan = 1;
 
-    protected static ?string $heading = 'Top 5 Barang Fast-Moving (30 Hari Terakhir)';
+    protected static ?string $heading = 'Top 5 Barang Fast-Moving';
+    protected static ?string $description = 'Katalog dengan perputaran stok keluar tertinggi 30 hari terakhir';
+    protected static ?string $maxHeight = '280px';
 
     protected function getData(): array
     {
@@ -27,12 +28,50 @@ class FastMovingChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Terjual/Keluar',
+                    'label' => 'Total Terjual / Keluar',
                     'data' => $products->pluck('stock_movements_sum_quantity')->toArray(),
-                    'backgroundColor' => '#f59e0b',
+                    'backgroundColor' => '#6366f1', // Indigo 500
+                    'borderRadius' => 6,
+                    'borderSkipped' => false,
                 ],
             ],
-            'labels' => $products->pluck('name')->map(fn($n) => str($n)->limit(15))->toArray(),
+            'labels' => $products->pluck('name')->map(fn($n) => str($n)->limit(14))->toArray(),
+        ];
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            'plugins' => [
+                'legend' => [
+                    'display' => false,
+                ],
+            ],
+            'scales' => [
+                'x' => [
+                    'grid' => [
+                        'display' => false,
+                    ],
+                    'ticks' => [
+                        'font' => [
+                            'family' => 'Inter',
+                            'size' => 11,
+                        ],
+                    ],
+                ],
+                'y' => [
+                    'beginAtZero' => true,
+                    'grid' => [
+                        'color' => 'rgba(148, 163, 184, 0.1)',
+                    ],
+                    'ticks' => [
+                        'font' => [
+                            'family' => 'Inter',
+                            'size' => 11,
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 

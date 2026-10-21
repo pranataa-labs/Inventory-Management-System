@@ -65,7 +65,7 @@ class AdminPanelProvider extends PanelProvider
                 fn () => view('filament.theme-shadcn')
             )
             ->renderHook(
-                PanelsRenderHook::USER_MENU_BEFORE,
+                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
                 fn () => view('filament.components.theme-toggle')
             )
             ->renderHook(

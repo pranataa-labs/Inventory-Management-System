@@ -97,7 +97,7 @@ Sistem transaksi dengan validasi *real-time* yang mustahil menyebabkan stok minu
 6. **Jalankan Storage Link (Untuk QR Code / Gambar):**
    ```bash
    php artisan storage:link
-   ```
+   ``` 
 
 7. **Jalankan Server Lokal:**
    ```bash

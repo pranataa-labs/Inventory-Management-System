@@ -1,4 +1,4 @@
-# 📦 Sistem Manajemen Inventaris Enterprise
+# 📦 Sistem Manajemen Inventaris Enterprise (Shadcn Admin UI)
 
 Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yang dibangun dengan menggunakan **Laravel 13, Filament v3, Tailwind CSS v4, dan MySQL**, dipercantik dengan sentuhan **Shadcn Admin Design System** (`satnaing/shadcn-admin`). Aplikasi ini dirancang untuk mencatat pergerakan barang, menganalisis ketersediaan stok, menangani retur, hingga memprediksi rasio perputaran barang di multi-gudang secara akurat, modern, dan real-time.
 

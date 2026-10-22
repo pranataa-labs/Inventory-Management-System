@@ -24,7 +24,7 @@ Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yan
 
 ## 🚀 Fitur Unggulan
 
-### 1. Manajemen Katalog & Multi-Gudang
+### 1. Manajemen Katalog & Multi-Gudang 
 Kelola data barang dan distribusikan stoknya di berbagai gudang yang berbeda. Modul Master Data mencakup:
 - **Katalog Barang**: Pencatatan profil lengkap produk (SKU, Harga, Batas Stok).
 - **Kategori & Satuan**: Pengelompokan jenis barang dan pengaturan Satuan (Pcs, Box, Kg, Liter, dll).

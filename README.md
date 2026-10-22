@@ -4,6 +4,15 @@ Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yan
 
 ---
 
+## 📸 Preview Tampilan Aplikasi (HD)
+
+<p align="center">
+  <b>Dashboard Enterprise (Shadcn-Admin & Overview Mutasi Stok 12 Bulan)</b><br>
+  <img src="screenshots/dashboard-preview.png" alt="Inventaris Studio Dashboard" width="920">
+</p>
+
+---
+
 ## 🎨 Tampilan & UI/UX (Shadcn Admin Design System)
 *   **Palet Slate OKLCH & Inter Typography:** Tampilan profesional dengan kontras tinggi, font Inter, dan radius sudut 0.625rem (`rounded-xl`).
 *   **16rem Collapsible Sidebar:** Sidebar navigasi modular yang dapat disederhanakan menjadi mini-rail ikonik secara instan di layar desktop.

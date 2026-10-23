@@ -1,125 +1,115 @@
-# 📦 Sistem Manajemen Inventaris Enterprise (Shadcn Admin UI)
+# 📦 Enterprise Inventory Management System (Shadcn Admin UI)
 
-Sistem Manajemen Inventaris (Inventory Management System) skala _enterprise_ yang dibangun dengan menggunakan **Laravel 13, Filament v3, Tailwind CSS v4, dan MySQL**, dipercantik dengan sentuhan **Shadcn Admin Design System** (`satnaing/shadcn-admin`). Aplikasi ini dirancang untuk mencatat pergerakan barang, menganalisis ketersediaan stok, menangani retur, hingga memprediksi rasio perputaran barang di multi-gudang secara akurat, modern, dan real-time.
+![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Filament](https://img.shields.io/badge/FilamentPHP-v3-F59E0B?style=for-the-badge)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+
+An enterprise-grade Inventory Management System engineered with **Laravel 13, Filament v3, Tailwind CSS v4, and MySQL**, elevated with the refined aesthetics of the **Shadcn Admin Design System** (`satnaing/shadcn-admin`). Designed for tracking high-volume asset movements, auditing stock availability, processing complex vendor returns, and forecasting inventory turnover across multi-warehouse locations in real time.
 
 ---
 
-## 📸 Preview Tampilan Aplikasi (HD)
+## 📸 High-Definition Application Preview
 
 <p align="center">
-  <b>Dashboard Enterprise (Shadcn-Admin & Overview Mutasi Stok 12 Bulan)</b><br>
-  <img src="screenshots/dashboard-preview.png" alt="Inventaris Studio Dashboard" width="920">
+  <b>Enterprise Dashboard (Shadcn-Admin & 12-Month Stock Movement Overview)</b><br>
+  <img src="screenshots/dashboard-preview.png" alt="Inventory Studio Dashboard" width="920">
 </p>
 
 ---
 
-## 🎨 Tampilan & UI/UX (Shadcn Admin Design System)
-*   **Palet Slate OKLCH & Inter Typography:** Tampilan profesional dengan kontras tinggi, font Inter, dan radius sudut 0.625rem (`rounded-xl`).
-*   **16rem Collapsible Sidebar:** Sidebar navigasi modular yang dapat disederhanakan menjadi mini-rail ikonik secara instan di layar desktop.
-*   **Sticky Blurred Topbar:** Header sticky dengan efek `backdrop-blur-md` dan garis pembatas halus.
-*   **3-Way Dark / Light / System Mode:** Dukungan tema gelap dan terang terintegrasi penuh pada seluruh halaman, tabel data, modal, dan grafik.
-*   **Command Palette (`⌘K` / `Ctrl+K`):** Navigasi dan pencarian global instan dari mana saja menggunakan keyboard.
+## 🎨 Design System & UI/UX (Shadcn Admin)
+
+- **Slate OKLCH Palette & Inter Typography:** High-contrast professional palette with Inter font and 0.625rem border radiuses (`rounded-xl`).
+- **16rem Collapsible Sidebar:** Modular navigation collapsing smoothly into an iconic mini-rail on desktop displays.
+- **Sticky Blurred Header:** Translucent sticky navbar with `backdrop-blur-md` and understated separation borders.
+- **3-Way Theme Support (Light / Dark / System):** Native dark and light theme integration spanning all pages, data tables, modals, and charts.
+- **Command Palette (`⌘K` / `Ctrl+K`):** Global instantaneous navigation and keyword search executable directly from the keyboard.
 
 ---
 
-## 🚀 Fitur Unggulan
+## 🚀 Key System Capabilities
 
-### 1. Manajemen Katalog & Multi-Gudang 
-Kelola data barang dan distribusikan stoknya di berbagai gudang yang berbeda. Modul Master Data mencakup:
-- **Katalog Barang**: Pencatatan profil lengkap produk (SKU, Harga, Batas Stok).
-- **Kategori & Satuan**: Pengelompokan jenis barang dan pengaturan Satuan (Pcs, Box, Kg, Liter, dll).
-- **Pemasok (Supplier)**: Database pemasok lengkap dengan narahubung dan kontak.
-- **Lokasi Gudang**: Pengaturan alamat multi-cabang.
+### 1. Catalog Management & Multi-Warehouse Tracking
+Manage product hierarchies and balance inventory allocations across distributed physical warehouses:
+- **Product Catalog:** Comprehensive master records detailing SKU, Cost/Retail Pricing, and Threshold Alert levels.
+- **Categories & Measurement Units:** Granular grouping and configurable units (Pieces, Boxes, Kilograms, Liters).
+- **Supplier Directory:** Centralized vendor database with contact persons, lead times, and terms.
+- **Multi-Warehouse Locations:** Dedicated tracking across branch facilities.
 
-### 2. Transaksi & Mutasi Keamanan Tinggi
-Sistem transaksi dengan validasi *real-time* yang mustahil menyebabkan stok minus:
-- **Barang Masuk (Inbound)**: Pencatatan kedatangan stok.
-- **Barang Keluar (Outbound)**: Pencatatan penjualan/distribusi. Sistem otomatis memblokir transaksi jika kuantitas melebihi stok yang ada.
-- **Retur Barang**: Fasilitas `Retur Masuk` (dari pelanggan) dan `Retur Keluar` (ke pemasok).
-- **Transfer Stok**: Perpindahan stok antar gudang dengan pencatatan mutasi ganda secara otomatis.
-- **Stock Opname**: Pencocokan stok fisik dan sistem. Selisih langsung dieksekusi sebagai 'Adjustment'.
-- **Scanner QR Code**: Generate QR Code secara otomatis, dan gunakan kamera scanner di dalam aplikasi untuk melakukan mutasi tanpa perlu mengetik manual.
+### 2. Transaction Integrity & Movement Safeguards
+Enforces transactional consistency with zero-negative-inventory constraints:
+- **Inbound Receipts:** Record arrivals and supplier replenishment.
+- **Outbound Shipments:** Process customer orders and branch fulfillment. Transactions exceeding on-hand stock are blocked at the database engine level.
+- **Asset Returns:** Separate workflows for Customer Returns and Vendor RMA dispatches.
+- **Inter-Warehouse Transfers:** Dual-ledger atomic transfer recordings.
+- **Physical Stock Opname:** Cycle counting discrepancy resolution via automated adjustments.
+- **Integrated QR Code Scanner:** Automatic QR code generation and in-app camera scanning for rapid item identification.
 
-### 3. Dashboard Analitik & Metrik Cerdas
-- **Low Stock Alert**: Peringatan otomatis apabila stok barang berada di bawah batas minimum (ditandai dengan _badge_ warna merah).
-- **Estimasi Keuangan**: Perhitungan otomatis Total Nilai Aset (stok mengendap) dan Estimasi Potensi Laba.
-- **Tren Mutasi Stok (Line Chart)**: Melihat pergerakan keluar-masuk stok.
-- **Fast-Moving Products (Bar Chart)**: Mengetahui 5 barang paling cepat habis.
-- **Inventory Turnover Ratio**: Mengukur rasio perputaran persediaan dalam 30 hari terakhir.
-- **Dead Stock Analysis (Tabel)**: Mendeteksi barang yang tidak ada pergerakan atau lambat terjual.
+### 3. Business Intelligence & Analytics
+- **Low Stock Alerts:** Automated warnings when SKU balances fall below designated safety stock thresholds.
+- **Financial Capital Valuation:** Live calculation of idle inventory asset valuation and gross profit potentials.
+- **Stock Movement Trends (Line Chart):** Inbound vs. Outbound flow analytics.
+- **Fast-Moving Products (Bar Chart):** Identify top 5 fastest-depleting inventory items.
+- **Inventory Turnover Ratio:** Measure 30-day velocity metrics.
+- **Dead Stock Analysis:** Surface stagnant SKUs to optimize warehouse capital.
 
-### 4. Keamanan & Route Obfuscation (Admin Hardening)
-- **Configurable Panel Path:** URL panel manajemen Filament tidak menggunakan path umum (`/admin`), melainkan dikonfigurasi melalui environment variable `ADMIN_PREFIX` di `.env` (default: `inventaris-portal-mgmt`).
-- **Anti-Scanning Protection:** Upaya akses langsung ke `/admin` otomatis mengembalikan status **HTTP 404 Not Found**, menyamarkan endpoint panel administrasi dari bot scanner dan serangan brute-force.
-- **Transisi Otentikasi Terenkripsi:** Redirect root `/` secara dinamis menuju path rahasia yang terkonfigurasi.
-
-### 4. Enterprise Security & Reliability (Keamanan)
-- **Role-Based Access Control (RBAC)**: Memisahkan hak akses antara `Admin` (memiliki kendali penuh CRUD) dan `Staff Gudang` (hanya bisa menambah transaksi, tidak bisa mengedit master data).
-- **Audit Trail (Log Aktivitas)**: Mencatat seluruh aktivitas user (Login, Logout, Gagal Login, Tambah/Edit/Hapus Data) secara diam-diam, dilengkapi dengan pelacakan _IP Address_ dan _User Agent_.
-- **Soft Deletes**: Fitur keamanan anti data hilang. Tabel krusial (Produk dan Transaksi) yang dihapus tidak benar-benar dihapus dari database, dan dapat di-*restore* kembali kapan saja oleh Admin.
-- **Export & Import**: Mendukung bulk-import barang via CSV/Excel untuk mempermudah migrasi data.
+### 4. Admin Route Obfuscation & Security Hardening
+- **Dynamic Administrative Route:** Management panel paths avoid predictable routes (`/admin`) and are driven by `ADMIN_PREFIX` in `.env` (default: `inventaris-portal-mgmt`).
+- **Automated Scanner Mitigation:** Direct requests to `/admin` immediately return **HTTP 404 Not Found**, cloaking the administrative surface from bot probes.
+- **Role-Based Access Control (RBAC):** Strict separation between Administrator roles (full administrative permissions) and Warehouse Staff (transaction logging only).
+- **Comprehensive Audit Trail:** Silent recording of system activities (Login, Logout, Failed Attempts, Modifications) logging IP addresses and User Agents.
+- **Soft Delete Safeguards:** Non-destructive deletion on critical master data preventing accidental data loss.
+- **Bulk Data Migration:** CSV/Excel import and export capabilities.
 
 ---
 
-## 🛠️ Prasyarat (Requirements)
-- **PHP** 8.3+
+## 🛠️ System Requirements
+
+- **PHP** 8.3 or higher
 - **Composer**
-- **Node.js** & NPM
-- **MySQL** / MariaDB
+- **Node.js & NPM**
+- **MySQL / MariaDB**
 
 ---
 
-## 📦 Panduan Instalasi (Development)
+## 📦 Local Installation & Setup Guide
 
-1. **Clone repositori ini:**
-   ```bash
-   git clone https://github.com/pranataa-labs/Inventory-Management-System.git
-   cd Sistem-Manajemen-Inventaris
-   ```
+### 1. Repository Cloning
+```bash
+git clone https://github.com/pranataa-labs/Inventory-Management-System.git
+cd Inventory-Management-System
+```
 
-2. **Salin dan atur file Environment:**
-   ```bash
-   cp .env.example .env
-   ```
-   *(Buka file `.env`, pastikan `DB_CONNECTION=mysql` dan isi nama `DB_DATABASE` sesuai dengan yang ada di sistem MySQL Anda).*
+### 2. Environment Configuration
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+Configure your database credentials in `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=inventaris_db
+DB_USERNAME=root
+DB_PASSWORD=
+ADMIN_PREFIX=inventaris-portal-mgmt
+```
 
-3. **Install Dependensi:**
-   ```bash
-   composer install
-   npm install && npm run build
-   ```
+### 3. Dependency Installation
+```bash
+composer install
+npm install && npm run build
+```
 
-4. **Generate Application Key:**
-   ```bash
-   php artisan key:generate
-   ```
+### 4. Database Migration & Seeding
+```bash
+php artisan migrate:fresh --seed
+```
 
-5. **Jalankan Migrasi dan Seeder:**
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
-
-6. **Jalankan Storage Link (Untuk QR Code / Gambar):**
-   ```bash
-   php artisan storage:link
-   ``` 
-
-7. **Jalankan Server Lokal:**
-   ```bash
-   php artisan serve
-   ```
-   Aplikasi dapat diakses di `http://localhost:8000/admin`. Halaman depan (`/`) akan otomatis di-redirect ke panel Admin.
-
----
-
-## 🔑 Akun Uji Coba (Dummy)
-Gunakan kredensial berikut untuk menguji coba limitasi otorisasi (RBAC):
-
-| Role | Email | Password | Hak Akses |
-| --- | --- | --- | --- |
-| **Super Admin** | `admin@inventory.test` | `password` | Bebas akses ke semua modul dan sistem. |
-| **Staff Gudang** | `staff@inventory.test` | `password` | Terbatas. Hanya bisa _view_ katalog, tambah mutasi stok, & scanner QR. |
-
----
-
-*Dibuat oleh [pranataa-labs](https://github.com/pranataa-labs).*
+### 5. Launch Development Server
+```bash
+php artisan serve
+```
+Access the application at `http://localhost:8000`.

@@ -1,47 +1,26 @@
-<laravel-boost-guidelines>
-# Laravel Application
+# Sistem Manajemen Inventaris Enterprise (Shadcn Admin UI)
 
-This repository contains a Laravel application. Complete the following setup before working on the user's request.
+**Tech Stack:** Laravel 13, Filament v3, Tailwind CSS v4, MySQL / SQLite, Spatie Permission.  
+**Standards & Operating Workflow:** Terintegrasi penuh dengan [Workflow Master](.workflow/README.md).
 
-## Prerequisites
+---
 
-Verify that PHP and Composer are available:
+## 1. Operating Discipline & Engineering Workflow
+Semua pekerjaan rekayasa perangkat lunak pada repositori ini WAJIB mematuhi 9 tahapan alur kerja di `.workflow/workflows/00-engineering-workflow-ai-coding.md`:
+1. **Triage:** Pahami tujuan, klasifikasikan tipe tugas dan tingkat risiko (Low / Medium / High).
+2. **Discover:** Periksa file terkait, model, migrasi, dan kontrak data sebelum melakukan perubahan.
+3. **Design:** Rancang acceptance criteria, flow data, dan boundary error.
+4. **Plan:** Tentukan file dan urutan modifikasi; hindari overengineering.
+5. **Implement:** Tulis kode bersih, aman, dan modular sesuai konvensi Laravel.
+6. **Verify:** Jalankan test suite secara nyata (`php artisan test` atau `./vendor/bin/phpunit`).
+7. **Review:** Periksa diff, otorisasi, pencegahan stok minus, dan integritas transaksi.
+8. **Release:** Verifikasi migrasi skema dan kesehatan aplikasi.
+9. **Report:** Laporkan hasil verifikasi nyata dengan jujur (Passed / Failed / Skipped).
 
-```sh
-php -v
-composer -V
-```
+---
 
-If either command is unavailable, detect the user's operating system and install the prerequisites with the appropriate command:
-
-macOS:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.5)"
-```
-
-Windows PowerShell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.5'))
-```
-
-Linux:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.5)"
-```
-
-After installation, ask the user to restart their terminal. If the agent needs the restarted shell to continue, ask the user to reopen their terminal and rerun their original prompt.
-
-## Agent Setup
-
-Install Laravel Boost from the application root before making application changes:
-
-```sh
-composer require laravel/boost --dev
-php artisan boost:install
-```
-
-Boost replaces these bootstrap instructions with guidelines tailored to the application. After installation, read `AGENTS.md` again and continue with the user's original request using the generated guidelines.
-</laravel-boost-guidelines>
+## 2. Aturan Domain Khusus Inventaris
+- **Pencegahan Stok Minus (Non-Negotiable):** Mutasi stok keluar (`out`, `retur_out`) WAJIB memverifikasi bahwa stok di gudang bersangkutan mencukupi sebelum dikurangi. Jika tidak cukup, sistem melempar exception: `"Stok tidak mencukupi untuk dikeluarkan/retur."`.
+- **Integritas Multi-Gudang:** Stok disimpan per kombinasi produk dan gudang pada tabel `product_warehouses`. Atribut `total_stock` pada model `Product` merupakan penjumlahan seluruh gudang.
+- **Audit Logging:** Setiap mutasi atau perubahan master data dicatat melalui trait `HasAuditLog`.
+- **Testing (Pola AAA):** Pengujian automated wajib menggunakan SQLite in-memory (`RefreshDatabase`), mengikuti standar `.workflow/rules/04-testing-qa-rules.md`.

@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path(env('ADMIN_PREFIX', 'inventaris-portal-mgmt'))
             ->login(\App\Filament\Pages\Auth\Login::class)
             ->brandName('Inventaris Studio')
             ->brandLogo(fn () => new HtmlString('

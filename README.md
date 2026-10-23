@@ -48,6 +48,11 @@ Sistem transaksi dengan validasi *real-time* yang mustahil menyebabkan stok minu
 - **Inventory Turnover Ratio**: Mengukur rasio perputaran persediaan dalam 30 hari terakhir.
 - **Dead Stock Analysis (Tabel)**: Mendeteksi barang yang tidak ada pergerakan atau lambat terjual.
 
+### 4. Keamanan & Route Obfuscation (Admin Hardening)
+- **Configurable Panel Path:** URL panel manajemen Filament tidak menggunakan path umum (`/admin`), melainkan dikonfigurasi melalui environment variable `ADMIN_PREFIX` di `.env` (default: `inventaris-portal-mgmt`).
+- **Anti-Scanning Protection:** Upaya akses langsung ke `/admin` otomatis mengembalikan status **HTTP 404 Not Found**, menyamarkan endpoint panel administrasi dari bot scanner dan serangan brute-force.
+- **Transisi Otentikasi Terenkripsi:** Redirect root `/` secara dinamis menuju path rahasia yang terkonfigurasi.
+
 ### 4. Enterprise Security & Reliability (Keamanan)
 - **Role-Based Access Control (RBAC)**: Memisahkan hak akses antara `Admin` (memiliki kendali penuh CRUD) dan `Staff Gudang` (hanya bisa menambah transaksi, tidak bisa mengedit master data).
 - **Audit Trail (Log Aktivitas)**: Mencatat seluruh aktivitas user (Login, Logout, Gagal Login, Tambah/Edit/Hapus Data) secara diam-diam, dilengkapi dengan pelacakan _IP Address_ dan _User Agent_.

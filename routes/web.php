@@ -2,4 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/admin');
+$adminPrefix = env('ADMIN_PREFIX', 'inventaris-portal-mgmt');
+
+Route::redirect('/', '/' . $adminPrefix);

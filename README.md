@@ -1,5 +1,7 @@
 # 📦 Enterprise Inventory Management System (Shadcn Admin UI)
 
+[`laravel`](https://github.com/topics/laravel) • [`filament`](https://github.com/topics/filament) • [`tailwind`](https://github.com/topics/tailwind) • [`inventory-management`](https://github.com/topics/inventory-management) • [`warehouse`](https://github.com/topics/warehouse) • [`mysql`](https://github.com/topics/mysql) • [`shadcn-admin`](https://github.com/topics/shadcn-admin)
+
 ![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Filament](https://img.shields.io/badge/FilamentPHP-v3-F59E0B?style=for-the-badge)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
